@@ -1,0 +1,83 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables: 
+   
+  - name: resourceGroupName
+    value: RG-SYSTEME-FRACE-001-SANDBOX
+  
+  - name: location
+    value: francecentral
+  
+  - name: virtualNetworkName
+    value: VNET-SYSTEME-FRACE-001
+
+  - name: functionAppName
+    value: funcswapnsgtrafficlog
+  
+  - name: azureResourceManagerConnection
+    value: 'IRP INFRAS SYSTEM SP'
+
+steps:
+- task: AzurePowerShell@5
+  displayName: Deploy Resource Group
+  inputs:
+    azureSubscription: $(azureResourceManagerConnection)
+    ScriptType: 'FilePath'
+    ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/resourceGroup.ps1'
+    ScriptArguments: '-resourceGroupName "$(resourceGroupName)" -resourceGroupLocation "$(location)" '
+    azurePowerShellVersion: 'LatestVersion' 
+- task: AzurePowerShell@5
+  displayName: Deploy Virtual network
+  inputs:
+    azureSubscription: $(azureResourceManagerConnection)
+    ScriptType: 'FilePath'
+    ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/virtualNetwork.ps1'
+    ScriptArguments: '-resourceGroupName "$(resourceGroupName)" -resourceGroupLocation "$(location)" -virtualNetworkName "$(virtualNetworkName)" -environment "sandbox" '
+    azurePowerShellVersion: 'LatestVersion'
+
+- task: AzurePowerShell@5
+  displayName: Deploy Network Security Group Rule
+  inputs:
+    azureSubscription: $(azureResourceManagerConnection)
+    ScriptType: 'FilePath'
+    ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/addNetworkSecurityRules.ps1'
+    azurePowerShellVersion: 'LatestVersion'
+- task: AzurePowerShell@5
+  displayName: Deploy Azure Function App
+  inputs:
+    azureSubscription: $(azureResourceManagerConnection)
+    ScriptType: 'FilePath'
+    ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/functionapp.ps1'
+    ScriptArguments: '-resourceGroupName "$(resourceGroupName)" -resourceGroupLocation "$(location)" -functionAppName "$(functionAppName)" '
+    azurePowerShellVersion: 'LatestVersion'
+
+# - task: ArchiveFiles@2
+#   displayName: 'Archive files'
+#   inputs:
+#     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/funcapp'
+#     includeRootFolder: false
+#     archiveType: zip
+#     archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+#     replaceExistingArchive: true
+# - task: AzureFunctionApp@2
+#   displayName: Deploy Azure function Code
+#   inputs:
+#     connectedServiceNameARM: 'IRP Sandbox(62e77dde-5e29-4436-9ae2-515019b815a8)'
+#     appType: 'functionApp'
+#     appName: 'funcswapnsgtraffic'
+#     package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+#     deploymentMethod: 'auto'
+
+# - task: AzurePowerShell@5
+#   displayName: Deploy Azure Function App
+#   inputs:
+#     azureSubscription: $(azureResourceManagerConnection)
+#     ScriptType: 'FilePath'
+#     ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/privateEndpoint.ps1'
+#     azurePowerShellVersion: 'LatestVersion'
+
+
