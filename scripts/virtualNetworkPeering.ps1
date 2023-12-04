@@ -20,7 +20,3 @@ Add-AzVirtualNetworkPeering `
   -RemoteVirtualNetworkId $hubVirtualNetwork.Id
 
 
-  Get-AzVirtualNetworkPeering `
-  -ResourceGroupName myResourceGroup `
-  -VirtualNetworkName myVirtualNetwork1 `
-  | Select-Object PeeringState
