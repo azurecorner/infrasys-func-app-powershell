@@ -55,6 +55,14 @@ steps:
     ScriptArguments: '-resourceGroupName "$(resourceGroupName)" -resourceGroupLocation "$(location)" -functionAppName "$(functionAppName)" '
     azurePowerShellVersion: 'LatestVersion'
 
+- task: AzurePowerShell@5
+  displayName: Deploy Virtual Network Peering
+  inputs:
+    azureSubscription: $(azureResourceManagerConnection)
+    ScriptType: 'FilePath'
+    ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/virtualNetworkPeering.ps1'
+    azurePowerShellVersion: 'LatestVersion'
+
 # - task: ArchiveFiles@2
 #   displayName: 'Archive files'
 #   inputs:
