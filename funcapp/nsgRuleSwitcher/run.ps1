@@ -6,7 +6,7 @@ param($Request, $TriggerMetadata)
 # Write to the Azure Functions log stream.
 Write-Host "PowerShell HTTP trigger function processed a request."
 Get-AzContext
-Set-AzContext -Subscription "62e77dde-5e29-4436-9ae2-515019b815a8"
+Set-AzContext -Subscription "023b2039-5c23-44b8-844e-c002f8ed431d"
 Get-AzContext
 # Interact with query parameters or the body of the request.
 
