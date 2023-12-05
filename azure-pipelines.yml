@@ -74,7 +74,7 @@ steps:
 - task: AzureFunctionApp@2
   displayName: Deploy Azure function Code
   inputs:
-    connectedServiceNameARM: 'IRP Sandbox(62e77dde-5e29-4436-9ae2-515019b815a8)'
+    connectedServiceNameARM: $(azureResourceManagerConnection)
     appType: 'functionApp'
     appName: 'funcswapnsgtraffic'
     package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
