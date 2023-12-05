@@ -8,15 +8,30 @@ $hubVirtualNetwork =  Get-AzVirtualNetwork -Name $hubVirtualNetworkName -Resourc
 
 $spokeVirtualNetwork =  Get-AzVirtualNetwork -Name $spokeVirtualNetworkName -ResourceGroupName $spokeResourceGroupName 
 
-Add-AzVirtualNetworkPeering `
-  -Name myVirtualNetwork1-myVirtualNetwork2 `
-  -VirtualNetwork $hubVirtualNetwork `
-  -RemoteVirtualNetworkId $spokeVirtualNetwork.Id
+$peering = Get-AzVirtualNetworkPeering  `
+-Name "hub-to-spoke"  `
+-VirtualNetworkName $hubVirtualNetwork  `
+-ResourceGroupName $hubResourceGroupName -ErrorAction SilentlyContinue
 
+Write-Host "peering hub  = $peering"
 
+if($null -eq $peering ) {
+    Add-AzVirtualNetworkPeering `
+      -Name "hub-to-spoke" `
+      -VirtualNetwork $hubVirtualNetwork `
+      -RemoteVirtualNetworkId $spokeVirtualNetwork.Id
+}
+
+$peering = Get-AzVirtualNetworkPeering  `
+-Name "spoke-to-hub"  `
+-VirtualNetworkName $spokeVirtualNetwork  `
+-ResourceGroupName $spokeResourceGroupName -ErrorAction SilentlyContinue
+
+Write-Host "peering spoke  = $peering"
+
+if($null -eq $peering ) {
   Add-AzVirtualNetworkPeering `
-  -Name myVirtualNetwork2-myVirtualNetwork1 `
+  -Name "spoke-to-hub" `
   -VirtualNetwork $spokeVirtualNetwork `
   -RemoteVirtualNetworkId $hubVirtualNetwork.Id
-
-
+}
