@@ -8,6 +8,7 @@ $spokeVirtualNetwork =  Get-AzVirtualNetwork -Name $spokeVirtualNetworkName -Res
 
 $peering = Get-AzVirtualNetworkPeering -Name "hub-to-spoke" -VirtualNetworkName $hubVirtualNetwork -ResourceGroupName $hubResourceGroupName -ErrorAction SilentlyContinue
 
+try {  
 Write-Host "peering hub  = $peering"
 
 if($null -eq $peering ) {
@@ -37,3 +38,9 @@ if($null -eq $peering ) {
 } else {
     Write-Host -ForegroundColor Yellow "virtual network peering spoke-to-hub already exists"
 }
+
+}
+catch {
+    Write-Host "An error occurred:"
+    Write-Host $_
+  }
