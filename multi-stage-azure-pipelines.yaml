@@ -24,9 +24,6 @@ jobs:
 - job: DeploymentJobs
   pool:
     vmImage: ubuntu-latest
-  variables:
-    # Define variables specific to this job if needed...
-  
   steps:
     # Your existing steps for resource group, virtual network, NSG rule, and other tasks...
 
