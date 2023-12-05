@@ -76,7 +76,7 @@ steps:
   inputs:
     connectedServiceNameARM: $(azureResourceManagerConnection)
     appType: 'functionApp'
-    appName: 'funcswapnsgtraffic'
+    appName: '$(functionAppName)'
     package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
     deploymentMethod: 'auto'
 
