@@ -26,7 +26,7 @@ jobs:
     vmImage: ubuntu-latest
   steps:
     # Your existing steps for resource group, virtual network, NSG rule, and other tasks...
-
+    - checkout: self
     - task: AzurePowerShell@5
       displayName: Deploy Resource Group
       inputs:
