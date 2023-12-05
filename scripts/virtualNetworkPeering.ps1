@@ -18,7 +18,7 @@ if($null -eq $peering ) {
     Add-AzVirtualNetworkPeering `
       -Name "hub-to-spoke" `
       -VirtualNetwork $hubVirtualNetwork `
-      -RemoteVirtualNetworkId $spokeVirtualNetwork.Id
+      -RemoteVirtualNetworkId $spokeVirtualNetwork.Id -Force
 }else {
   Write-Host -ForegroundColor Yellow "virtual network peering hub-to-spoke already exist"
 }
@@ -35,7 +35,7 @@ if($null -eq $peering ) {
   Add-AzVirtualNetworkPeering `
   -Name "spoke-to-hub" `
   -VirtualNetwork $spokeVirtualNetwork `
-  -RemoteVirtualNetworkId $hubVirtualNetwork.Id
+  -RemoteVirtualNetworkId $hubVirtualNetwork.Id -Force
 }else {
   Write-Host -ForegroundColor Yellow "virtual network peering spoke-to-hub already exist"
 }
