@@ -63,29 +63,29 @@ steps:
     ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/virtualNetworkPeering.ps1'
     azurePowerShellVersion: 'LatestVersion'
 
-# - task: ArchiveFiles@2
-#   displayName: 'Archive files'
-#   inputs:
-#     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/funcapp'
-#     includeRootFolder: false
-#     archiveType: zip
-#     archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-#     replaceExistingArchive: true
-# - task: AzureFunctionApp@2
-#   displayName: Deploy Azure function Code
-#   inputs:
-#     connectedServiceNameARM: 'IRP Sandbox(62e77dde-5e29-4436-9ae2-515019b815a8)'
-#     appType: 'functionApp'
-#     appName: 'funcswapnsgtraffic'
-#     package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
-#     deploymentMethod: 'auto'
+- task: ArchiveFiles@2
+  displayName: 'Archive files'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/funcapp'
+    includeRootFolder: false
+    archiveType: zip
+    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    replaceExistingArchive: true
+- task: AzureFunctionApp@2
+  displayName: Deploy Azure function Code
+  inputs:
+    connectedServiceNameARM: 'IRP Sandbox(62e77dde-5e29-4436-9ae2-515019b815a8)'
+    appType: 'functionApp'
+    appName: 'funcswapnsgtraffic'
+    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
 
-# - task: AzurePowerShell@5
-#   displayName: Deploy Azure Function App
-#   inputs:
-#     azureSubscription: $(azureResourceManagerConnection)
-#     ScriptType: 'FilePath'
-#     ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/privateEndpoint.ps1'
-#     azurePowerShellVersion: 'LatestVersion'
+- task: AzurePowerShell@5
+  displayName: Deploy Azure Function App
+  inputs:
+    azureSubscription: $(azureResourceManagerConnection)
+    ScriptType: 'FilePath'
+    ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/privateEndpoint.ps1'
+    azurePowerShellVersion: 'LatestVersion'
 
 
