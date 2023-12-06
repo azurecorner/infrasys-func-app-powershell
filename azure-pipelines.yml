@@ -48,6 +48,7 @@ steps:
     azurePowerShellVersion: 'LatestVersion'
 - task: AzurePowerShell@5
   displayName: Deploy Azure Function App
+  enabled: false
   inputs:
     azureSubscription: $(azureResourceManagerConnection)
     ScriptType: 'FilePath'
@@ -57,6 +58,7 @@ steps:
 
 - task: AzurePowerShell@5
   displayName: Deploy Virtual Network Peering
+  enabled: false
   inputs:
     azureSubscription: $(azureResourceManagerConnection)
     ScriptType: 'FilePath'
