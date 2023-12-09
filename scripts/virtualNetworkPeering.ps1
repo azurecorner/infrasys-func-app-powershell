@@ -1,5 +1,6 @@
-$hubVirtualNetworkName="vnet-infrasys-hub-shared-frace-nonprod"
-$hubResourceGroupName="rg-infrasys-shared-nonprod"
+$environement="sandbox"
+$hubVirtualNetworkName="vnet-infrasys-hub-shared-frace-$environement"
+$hubResourceGroupName="rg-infrasys-shared-$environement"
 $spokeVirtualNetworkName="VNET-SYSTEME-FRACE-001"
 $spokeResourceGroupName="RG-SYSTEME-FRACE-001-SANDBOX"
 
