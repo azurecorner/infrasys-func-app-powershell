@@ -28,14 +28,17 @@ else {
 # Create a serverless function app in the resource group.
 Write-Host "Creating $functionAppName"
 
+Write-Host "Creating app service plan $myAppServicePlan"
 New-AzAppServicePlan -ResourceGroupName $resourceGroupName -Name "myAppServicePlan" -Location $resourceGroupLocation -Tier "Basic"
 
 # Get the created App Service Plan
+Write-Host "Getting app service plan $myAppServicePlan"
 $appServicePlan = Get-AzAppServicePlan -ResourceGroupName $resourceGroupName -Name "myAppServicePlan"
 
 $functionApp = Get-AzFunctionApp -ResourceGroupName $resourceGroupName -Name $functionAppName  -ErrorAction SilentlyContinue
 
 Write-Host "notPresent = $functionApp"
+Write-Host "Creating function app $functionApp"
  if($null -eq $functionApp){ 
     Write-Host "Creating function app $functionAppName"
     $functionApp = New-AzFunctionApp -Name $functionAppName `
@@ -50,7 +53,7 @@ Write-Host "notPresent = $functionApp"
 
                   # Associate the Function App with the App Service Plan
 
-
+Write-Host "Updating  app service plan $myAppServicePlan"
 Update-AzFunctionApp -Name $functionAppName  -ResourceGroupName $resourceGroupName -PlanName $appServicePlan.Name -Force
     Write-Host -ForegroundColor Green "$($functionApp.Name) created succesfully at location $resourceGroupLocation"
     }
