@@ -7,7 +7,7 @@ pool:
 variables: 
    
   - name: resourceGroupName
-    value: RG-SYSTEME-FRACE-001-SANDBOX
+    value: RG-SYSTEME-FRACE-001-TEST
   
   - name: location
     value: francecentral
@@ -22,30 +22,30 @@ variables:
     value: 'IRP INFRAS SYSTEM SP'
 
 steps:
-# - task: AzurePowerShell@5
-#   displayName: Deploy Resource Group
-#   inputs:
-#     azureSubscription: $(azureResourceManagerConnection)
-#     ScriptType: 'FilePath'
-#     ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/resourceGroup.ps1'
-#     ScriptArguments: '-resourceGroupName "$(resourceGroupName)" -resourceGroupLocation "$(location)" '
-#     azurePowerShellVersion: 'LatestVersion' 
-# - task: AzurePowerShell@5
-#   displayName: Deploy Virtual network
-#   inputs:
-#     azureSubscription: $(azureResourceManagerConnection)
-#     ScriptType: 'FilePath'
-#     ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/virtualNetwork.ps1'
-#     ScriptArguments: '-resourceGroupName "$(resourceGroupName)" -resourceGroupLocation "$(location)" -virtualNetworkName "$(virtualNetworkName)" -environment "sandbox" '
-#     azurePowerShellVersion: 'LatestVersion'
+- task: AzurePowerShell@5
+  displayName: Deploy Resource Group
+  inputs:
+    azureSubscription: $(azureResourceManagerConnection)
+    ScriptType: 'FilePath'
+    ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/resourceGroup.ps1'
+    ScriptArguments: '-resourceGroupName "$(resourceGroupName)" -resourceGroupLocation "$(location)" '
+    azurePowerShellVersion: 'LatestVersion' 
+- task: AzurePowerShell@5
+  displayName: Deploy Virtual network
+  inputs:
+    azureSubscription: $(azureResourceManagerConnection)
+    ScriptType: 'FilePath'
+    ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/virtualNetwork.ps1'
+    ScriptArguments: '-resourceGroupName "$(resourceGroupName)" -resourceGroupLocation "$(location)" -virtualNetworkName "$(virtualNetworkName)" -environment "sandbox" '
+    azurePowerShellVersion: 'LatestVersion'
 
-# - task: AzurePowerShell@5
-#   displayName: Deploy Network Security Group Rule
-#   inputs:
-#     azureSubscription: $(azureResourceManagerConnection)
-#     ScriptType: 'FilePath'
-#     ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/addNetworkSecurityRules.ps1'
-#     azurePowerShellVersion: 'LatestVersion'
+- task: AzurePowerShell@5
+  displayName: Deploy Network Security Group Rule
+  inputs:
+    azureSubscription: $(azureResourceManagerConnection)
+    ScriptType: 'FilePath'
+    ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/addNetworkSecurityRules.ps1'
+    azurePowerShellVersion: 'LatestVersion'
 
 
 - task: AzurePowerShell@5
@@ -65,30 +65,30 @@ steps:
 #     ScriptArguments: '-resourceGroupName "$(resourceGroupName)" -resourceGroupLocation "$(location)" -functionAppName "$(functionAppName)" '
 #     azurePowerShellVersion: 'LatestVersion'
 
-# - task: AzurePowerShell@5
-#   displayName: Deploy Virtual Network Peering
-#   inputs:
-#     azureSubscription: $(azureResourceManagerConnection)
-#     ScriptType: 'FilePath'
-#     ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/virtualNetworkPeering.ps1'
-#     azurePowerShellVersion: 'LatestVersion'
+- task: AzurePowerShell@5
+  displayName: Deploy Virtual Network Peering
+  inputs:
+    azureSubscription: $(azureResourceManagerConnection)
+    ScriptType: 'FilePath'
+    ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/virtualNetworkPeering.ps1'
+    azurePowerShellVersion: 'LatestVersion'
 
-# - task: ArchiveFiles@2
-#   displayName: 'Archive files'
-#   inputs:
-#     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/funcapp'
-#     includeRootFolder: false
-#     archiveType: zip
-#     archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-#     replaceExistingArchive: true
-# - task: AzureFunctionApp@2
-#   displayName: Deploy Azure function Code
-#   inputs:
-#     connectedServiceNameARM: $(azureResourceManagerConnection)
-#     appType: 'functionApp'
-#     appName: '$(functionAppName)'
-#     package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
-#     deploymentMethod: 'auto'
+- task: ArchiveFiles@2
+  displayName: 'Archive files'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/funcapp'
+    includeRootFolder: false
+    archiveType: zip
+    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    replaceExistingArchive: true
+- task: AzureFunctionApp@2
+  displayName: Deploy Azure function Code
+  inputs:
+    connectedServiceNameARM: $(azureResourceManagerConnection)
+    appType: 'functionApp'
+    appName: '$(functionAppName)'
+    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
 
 # - task: AzurePowerShell@5
 #   displayName: Deploy Private Endpoint

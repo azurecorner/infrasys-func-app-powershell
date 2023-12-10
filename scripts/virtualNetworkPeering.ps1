@@ -2,7 +2,7 @@ $environement="sandbox"
 $hubVirtualNetworkName="vnet-infrasys-hub-shared-frace-$environement"
 $hubResourceGroupName="rg-infrasys-shared-$environement"
 $spokeVirtualNetworkName="VNET-SYSTEME-FRACE-001"
-$spokeResourceGroupName="RG-SYSTEME-FRACE-001-SANDBOX"
+$spokeResourceGroupName="RG-SYSTEME-FRACE-001-TEST"
 
 $hubVirtualNetwork =  Get-AzVirtualNetwork -Name $hubVirtualNetworkName -ResourceGroupName $hubResourceGroupName 
 $spokeVirtualNetwork =  Get-AzVirtualNetwork -Name $spokeVirtualNetworkName -ResourceGroupName $spokeResourceGroupName 
