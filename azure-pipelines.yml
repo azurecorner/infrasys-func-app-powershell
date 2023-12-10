@@ -80,12 +80,12 @@ steps:
     package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
     deploymentMethod: 'auto'
 
-- task: AzurePowerShell@5
-  displayName: Deploy Azure Function App
-  inputs:
-    azureSubscription: $(azureResourceManagerConnection)
-    ScriptType: 'FilePath'
-    ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/privateEndpoint.ps1'
-    azurePowerShellVersion: 'LatestVersion'
+# - task: AzurePowerShell@5
+#   displayName: Deploy Private Endpoint
+#   inputs:
+#     azureSubscription: $(azureResourceManagerConnection)
+#     ScriptType: 'FilePath'
+#     ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/privateEndpoint.ps1'
+#     azurePowerShellVersion: 'LatestVersion'
 
 
