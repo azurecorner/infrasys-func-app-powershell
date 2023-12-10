@@ -3,7 +3,7 @@
 # Variable block
 $randomIdentifier = Get-Random
 $location = "francecentral"
-$resourceGroup = "rg-infrasys-shared-sandbox"
+$resourceGroup = "RG-SYSTEME-FRACE-001-SANDBOX"
 $tag = @{script = "create-function-app-app-service-plan"}
 $storage = "msdocsaccount$randomIdentifier"
 $appServicePlan = "msdocs-app-service-plan-$randomIdentifier"
@@ -13,8 +13,8 @@ $skuPlan = "B1"
 $functionsVersion = "4"
 
 # Create a resource group
-Write-Host "Creating $resourceGroup in $location..."
-New-AzResourceGroup -Name $resourceGroup -Location $location -Tag $tag
+# Write-Host "Creating $resourceGroup in $location..."
+# New-AzResourceGroup -Name $resourceGroup -Location $location -Tag $tag
 
 # Create an Azure storage account in the resource group.
 Write-Host "Creating $storage"
