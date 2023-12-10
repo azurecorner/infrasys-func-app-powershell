@@ -46,8 +46,8 @@ if($null -eq $function){
 
  }
 
-
-
+ $hubVirtualNetworkName ='vnet-infrasys-hub-shared-frace-sandbox' 
+ $hubResourceGroupName = "rg-infrasys-shared-sandbox"
 $virtualNetworkName ='VNET-SYSTEME-FRACE-001' 
 $privateEndpointSubnetName= 'snet-funapp-prod-frace-001' 
 $ResourceId =$function.Id
@@ -82,13 +82,13 @@ $subnet = Get-AzVirtualNetworkSubnetConfig -Name $privateEndpointSubnetName -Vir
 $pe = Get-AzPrivateEndpoint -Name $privateEndpointName -ResourceGroupName $resourceGroupName  -ErrorVariable notPresent -ErrorAction SilentlyContinue
 if ($notPresent)
 {
-Write-Host -ForegroundColor Green "creating private endpoint  $privateEndpointName at location $resourceGroupLocation"
-$pe = @{
-ResourceGroupName = $resourceGroupName
-Name = $privateEndpointName
-Location = $resourceGroupLocation 
-Subnet = $subnet
-PrivateLinkServiceConnection = $privateEndpointConnection
+    Write-Host -ForegroundColor Green "creating private endpoint  $privateEndpointName at location $resourceGroupLocation"
+    $pe = @{
+    ResourceGroupName = $resourceGroupName
+    Name = $privateEndpointName
+    Location = $resourceGroupLocation 
+    Subnet = $subnet
+    PrivateLinkServiceConnection = $privateEndpointConnection
 }
 New-AzPrivateEndpoint @pe
 
@@ -103,38 +103,60 @@ Write-Host  -ForegroundColor Magenta "using private endpoint  $privateEndpointNa
 $zone = Get-AzPrivateDnsZone -Name $privateDnsZoneName -ResourceGroupName $resourceGroupName  -ErrorVariable notPresent -ErrorAction SilentlyContinue
 if ($notPresent)
 {
-Write-Host -ForegroundColor Green "creating private dns zone $privateDnsZoneName  at  location  $resourceGroupLocation"
-$zn = @{
-ResourceGroupName = $resourceGroupName
-Name = $privateDnsZoneName
-}
-$zone = New-AzPrivateDnsZone @zn
+    Write-Host -ForegroundColor Green "creating private dns zone $privateDnsZoneName  at  location  $resourceGroupLocation"
+    $zn = @{
+    ResourceGroupName = $resourceGroupName
+    Name = $privateDnsZoneName
+    }
+    $zone = New-AzPrivateDnsZone @zn
 
-Write-Host -ForegroundColor Green "private dns zone $privateDnsZoneName created succesfully at location $resourceGroupLocation"
-}
-else {
-Write-Host -ForegroundColor Yellow "private dns zone $privateDnsZoneName already  exist at location $resourceGroupLocation"
-Write-Host  -ForegroundColor Magenta "using private dns zone   $privateDnsZoneName on location $resourceGroupLocation "
+    Write-Host -ForegroundColor Green "private dns zone $privateDnsZoneName created succesfully at location $resourceGroupLocation"
+    }
+    else {
+    Write-Host -ForegroundColor Yellow "private dns zone $privateDnsZoneName already  exist at location $resourceGroupLocation"
+    Write-Host  -ForegroundColor Magenta "using private dns zone   $privateDnsZoneName on location $resourceGroupLocation "
 }
 
 ## Create a DNS network link. ##
 $lk = Get-AzPrivateDnsVirtualNetworkLink -Name $dnsLinkName -ZoneName $privateDnsZoneName -ResourceGroupName $resourceGroupName   -ErrorAction SilentlyContinue
 if ($null -eq $lk) 
 {
-Write-Host -ForegroundColor Green "Creating PrivateDnsVirtualNetworkLink  $dnsLinkName at location $resourceGroupLocation"
-$lk = @{
-ResourceGroupName = $resourceGroupName
-ZoneName = $privateDnsZoneName
-Name = $dnsLinkName
-VirtualNetworkId = $virtualNetwork.Id
+    Write-Host -ForegroundColor Green "Creating PrivateDnsVirtualNetworkLink  $dnsLinkName at location $resourceGroupLocation"
+    $lk = @{
+    ResourceGroupName = $resourceGroupName
+    ZoneName = $privateDnsZoneName
+    Name = $dnsLinkName
+    VirtualNetworkId = $virtualNetwork.Id
+    }
+
+    New-AzPrivateDnsVirtualNetworkLink @lk
+    Write-Host -ForegroundColor Green "PrivateDnsVirtualNetworkLink $dnsLinkName successfully created at location $resourceGroupLocation"
+    }
+    else {
+    Write-Host -ForegroundColor Yellow "PrivateDnsVirtualNetworkLink $dnsLinkName already  exist at location $resourceGroupLocation"
+    Write-Host  -ForegroundColor Magenta "using PrivateDnsVirtualNetworkLink   $dnsLinkName on location $resourceGroupLocation "
 }
 
-New-AzPrivateDnsVirtualNetworkLink @lk
-Write-Host -ForegroundColor Green "PrivateDnsVirtualNetworkLink $dnsLinkName successfully created at location $resourceGroupLocation"
-}
-else {
-Write-Host -ForegroundColor Yellow "PrivateDnsVirtualNetworkLink $dnsLinkName already  exist at location $resourceGroupLocation"
-Write-Host  -ForegroundColor Magenta "using PrivateDnsVirtualNetworkLink   $dnsLinkName on location $resourceGroupLocation "
+# Crate hub link 
+$hublk = Get-AzPrivateDnsVirtualNetworkLink -Name "hub$dnsLinkName" -ZoneName $privateDnsZoneName -ResourceGroupName $resourceGroupName   -ErrorAction SilentlyContinue
+if ($null -eq $hublk) 
+{
+    $hubVirtualNetwork = Get-AzVirtualNetwork -ResourceGroupName $hubResourceGroupName -Name $hubVirtualNetworkName
+
+    Write-Host -ForegroundColor Green "Creating PrivateDnsVirtualNetworkLink  $dnsLinkName at location $resourceGroupLocation"
+    $lk = @{
+    ResourceGroupName = $resourceGroupName
+    ZoneName = $privateDnsZoneName
+    Name = "hub$dnsLinkName"
+    VirtualNetworkId = $hubVirtualNetwork.Id
+    }
+
+    New-AzPrivateDnsVirtualNetworkLink @lk
+    Write-Host -ForegroundColor Green "PrivateDnsVirtualNetworkLink $dnsLinkName successfully created at location $resourceGroupLocation"
+    }
+    else {
+    Write-Host -ForegroundColor Yellow "PrivateDnsVirtualNetworkLink $dnsLinkName already  exist at location $resourceGroupLocation"
+    Write-Host  -ForegroundColor Magenta "using PrivateDnsVirtualNetworkLink   $dnsLinkName on location $resourceGroupLocation "
 }
 
 ## Configure the DNS zone. ##
