@@ -21,13 +21,7 @@ $subnets = @(
         Name = "snet-cld-prod-frace-001"
         AddressPrefix = "10.20.1.0/24" 
     }
-    ,
-    [pscustomobject]@{
-        Name = "snet-funapp-prod-frace-001"
-        AddressPrefix = "10.20.2.0/24" 
-    }
-
-     )
+   )
 
 
 ## CREATING VIRTUAL NETWORK

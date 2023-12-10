@@ -49,7 +49,7 @@ if($null -eq $function){
  $hubVirtualNetworkName ='vnet-infrasys-hub-shared-frace-sandbox' 
  $hubResourceGroupName = "rg-infrasys-shared-sandbox"
 $virtualNetworkName ='VNET-SYSTEME-FRACE-001' 
-$privateEndpointSubnetName= 'snet-funapp-prod-frace-001' 
+$privateEndpointSubnetName= 'snet-cld-prod-frace-001' 
 $ResourceId =$function.Id
 $privateDnsZoneName ='privatelink.azurewebsites.net'  
 $dnsLinkName ='dsnLink'  
