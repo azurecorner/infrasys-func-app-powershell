@@ -42,7 +42,7 @@ Write-Host "Creating function app $function"
 if($null -eq $function){ 
     # Create a Function App
     Write-Host "Creating $function"
-    New-AzFunctionApp -Name $functionApp -StorageAccountName $storage -PlanName $appServicePlan -ResourceGroupName $resourceGroup -Runtime PowerShell -FunctionsVersion $functionsVersion
+    $function=New-AzFunctionApp -Name $functionApp -StorageAccountName $storage -PlanName $appServicePlan -ResourceGroupName $resourceGroup -Runtime PowerShell -FunctionsVersion $functionsVersion
 
  }
 
@@ -50,7 +50,7 @@ if($null -eq $function){
 
 $virtualNetworkName ='VNET-SYSTEME-FRACE-001' 
 $privateEndpointSubnetName= 'snet-funapp-prod-frace-001' 
-$ResourceId =$functionApp.Id
+$ResourceId =$function.Id
 $privateDnsZoneName ='privatelink.azurewebsites.net'  
 $dnsLinkName ='dsnLink'  
 $privateEndpointName ='pefuncswapnsgtraffic'   
