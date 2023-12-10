@@ -20,7 +20,7 @@ if($notPresent){
     Write-Host "Creating $storage"
     # Create an Azure storage account in the resource group.
     Write-Host "Creating $storage"
-    $storageAcc=New-AzStorageAccount -Name $storage -Location $resourceGroupLocation -ResourceGroupName $resourceGroup -SkuName $skuStorage
+    $storageAcc=New-AzStorageAccount -Name $storage -Location $resourceGroupLocation -ResourceGroupName $ResourceGroupName -SkuName $skuStorage
 
 }
 else {
