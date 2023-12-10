@@ -4,10 +4,9 @@
 
 $location = "francecentral"
 $resourceGroup = "RG-SYSTEME-FRACE-001-TEST"
-
-$storage = "st$functionAppName"
 $appServicePlan = "funcswapnsgtrafficxyzasp"
 $functionApp = "funcswapnsgtrafficxyz"
+$storage = "st$functionAppName"
 $skuStorage = "Standard_LRS"
 $skuPlan = "B1"
 $functionsVersion = "4"
