@@ -32,7 +32,7 @@ else {
 
 # Create an App Service plan
 Write-Host "Creating $appServicePlan"
-New-AzFunctionAppPlan -Name $appServicePlan -ResourceGroupName $resourceGroup -Location $resourceGroupLocation -Sku $skuPlan -WorkerType Windows
+New-AzFunctionAppPlan -Name $appServicePlan -ResourceGroupName $resourceGroupName -Location $resourceGroupLocation -Sku $skuPlan -WorkerType Windows
 
 
 $function = Get-AzFunctionApp -ResourceGroupName $resourceGroupName -Name $functionApp  -ErrorAction SilentlyContinue
