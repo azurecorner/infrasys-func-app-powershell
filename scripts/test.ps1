@@ -42,7 +42,7 @@ Write-Host "Creating function app $function"
 if($null -eq $function){ 
     # Create a Function App
     Write-Host "Creating $function"
-    $function=New-AzFunctionApp -Name $functionApp -StorageAccountName $storage -PlanName $appServicePlan -ResourceGroupName $resourceGroupName -Runtime PowerShell -FunctionsVersion $functionsVersion
+    $function=New-AzFunctionApp -Name $functionApp -StorageAccountName $storage -PlanName $appServicePlan -ResourceGroupName $resourceGroupName -Runtime PowerShell -FunctionsVersion $functionsVersion -RuntimeVersion 7.2
 
  }
 
