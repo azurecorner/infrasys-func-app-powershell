@@ -1,6 +1,8 @@
 $environement="qua"
 $resourceGroupLocation = "francecentral"
 $resourceGroupName = "RG-CLD-$environement-FRACE-001"
+$virtualNetwokResourceGroupName="RG-SYSTEME-FRACE-001
+"
 $appServicePlan = "asp-ctnvb-$environement-frace-001"
 $functionApp = "funcctnvbquafrace001"
 $storage = "stcldquafrace003"
@@ -12,13 +14,12 @@ $hubVirtualNetworkName ='vnet-infrasys-hub-shared-frace-sandbox'
 $hubResourceGroupName = "rg-infrasys-shared-sandbox"
 $virtualNetworkName ='VNET-SYSTEME-FRACE-001' 
 $privateEndpointSubnetName= 'snet-cld-qua-frace-001' 
-$ResourceId =$function.Id
+
 $privateDnsZoneName ='privatelink.azurewebsites.net'  
 $dnsLinkName ='dsnLink'  
 $privateEndpointName ='pe-func-ctnvb-qua-frace-001'   
 $privateDnsZoneConfigName ='snet-cld-qua-ZoneGroup'   
 $groupId ='sites'
-
 
 
 $storageAcc=Get-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storage -ErrorVariable notPresent -ErrorAction SilentlyContinue
@@ -51,7 +52,7 @@ if($null -eq $function){
 
  }
 
-
+ $ResourceId =$function.Id
 
 Write-Host -ForegroundColor Blue "####### creating private endpoint $privateEndpointName using resourceGroupName $resourceGroupName location $resourceGroupLocation `n" `
 "virtualNetworkName $virtualNetworkName `n" `
@@ -71,7 +72,7 @@ GroupID = $groupId
 $privateEndpointConnection = New-AzPrivateLinkServiceConnection @pec
 
 ## Place the virtual network you created previously into a variable. ##
-$virtualNetwork = Get-AzVirtualNetwork -ResourceGroupName $resourceGroupName -Name $virtualNetworkName
+$virtualNetwork = Get-AzVirtualNetwork -ResourceGroupName $virtualNetwokResourceGroupName -Name $virtualNetworkName
 $subnet = Get-AzVirtualNetworkSubnetConfig -Name $privateEndpointSubnetName -VirtualNetwork $virtualNetwork
 ## Create the private endpoint. ##
 
