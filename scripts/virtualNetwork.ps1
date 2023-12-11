@@ -10,7 +10,7 @@ Param
     [string]$environment
  )
 $nsgName = "nsg-stcld002-qua-001"
-$backendSubnetName="snet-cld-prod-frace-001"
+$backendSubnetName="snet-cld-qua-frace-001"
 $application ='infrasysteme';
 $tags = @{"application"="$application"; 
                        "environment"="$environment"}
@@ -18,7 +18,7 @@ $virtualNetworkAddressPrefix="10.20.0.0/16"
 
 $subnets = @(
     [pscustomobject]@{
-        Name = "snet-cld-prod-frace-001"
+        Name = "snet-cld-qua-frace-001"
         AddressPrefix = "10.20.1.0/24" 
     }
    )
