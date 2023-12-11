@@ -8,8 +8,12 @@ Param
     [string]$ruleName,
     [Parameter(Mandatory=$true, HelpMessage = "Please provide a valid priority")]
     [string]$priority,
+    [Parameter(Mandatory=$true, HelpMessage = "Please provide a valid sourceIP ")]
+    [string]$sourceIP,
     [Parameter(Mandatory=$true, HelpMessage = "Please provide a valid destinationIP ")]
-    [string]$destinationIP
+    [string]$destinationIP,
+    [Parameter(Mandatory=$true, HelpMessage = "Please provide a valid access ")]
+    [string]$access
  )
 
 # Variables
@@ -29,11 +33,11 @@ if ($null -eq $ruleToAdd) {
 # Create the rule
 $rule = New-AzNetworkSecurityRuleConfig -Name $ruleName `
     -Description "Deny traffic from any source to $destinationIP" `
-    -Access Deny `
+    -Access $access `
     -Protocol * `
     -Direction Inbound `
     -Priority $priority `
-    -SourceAddressPrefix * `
+    -SourceAddressPrefix $sourceIP `
     -SourcePortRange * `
     -DestinationAddressPrefix $destinationIP `
     -DestinationPortRange * 

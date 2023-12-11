@@ -40,14 +40,31 @@ steps:
     azurePowerShellVersion: 'LatestVersion'
 
 - task: AzurePowerShell@5
-  displayName: Deploy Network Security Group Rule
+  displayName: Deploy Storage account Network Security Group 
   inputs:
     azureSubscription: $(azureResourceManagerConnection)
     ScriptType: 'FilePath'
     ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/addNetworkSecurityRules.ps1'
-    ScriptArguments: '-resourceGroupName "RG-SYSTEME-FRACE-001" -nsgName "nsg-stcld002-qua-001" -ruleName "DenyAnyCustomAnyInbound" -priority "100" -destinationIP "10.20.32.4" '
+    ScriptArguments: '-resourceGroupName "RG-SYSTEME-FRACE-001" -nsgName "nsg-stcld002-qua-001" -ruleName "DenyAnyCustomAnyInbound" -priority "100" -sourceIP "*" -destinationIP "10.20.32.4" -access "Deny"  '
     azurePowerShellVersion: 'LatestVersion'
 
+- task: AzurePowerShell@5
+  displayName: Deploy AllowVeeamVmToFunctionApp Network Security Group 
+  inputs:
+    azureSubscription: $(azureResourceManagerConnection)
+    ScriptType: 'FilePath'
+    ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/addNetworkSecurityRules.ps1'
+    ScriptArguments: '-resourceGroupName "RG-SYSTEME-FRACE-001" -nsgName "nsg-stcld002-qua-001" -ruleName "AllowVeeamVmToFunctionApp" -priority "110" -sourceIP "10.20.0.4" -destinationIP "10.20.1.4" -access "Allow" '
+    azurePowerShellVersion: 'LatestVersion'
+
+- task: AzurePowerShell@5
+  displayName: Deploy DenyAnyFunctionAppCall Network Security Group 
+  inputs:
+    azureSubscription: $(azureResourceManagerConnection)
+    ScriptType: 'FilePath'
+    ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/addNetworkSecurityRules.ps1'
+    ScriptArguments: '-resourceGroupName "RG-SYSTEME-FRACE-001" -nsgName "nsg-stcld002-qua-001" -ruleName "DenyAnyFunctionAppCall" -priority "120" -sourceIP "*" -destinationIP "*" -access "Deny" '
+    azurePowerShellVersion: 'LatestVersion'
 
 - task: AzurePowerShell@5
   displayName: Deploy Azure Function App
