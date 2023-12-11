@@ -1,9 +1,23 @@
+Param
+(
+    [Parameter(Mandatory=$true, HelpMessage = "Please provide a valid resource group")]
+    [string]$resourceGroupName,
+    [Parameter(Mandatory=$true, HelpMessage = "Please provide a valid nsgName")]
+    [string]$nsgName,
+    [Parameter(Mandatory=$true, HelpMessage = "Please provide a valid ruleName ")]
+    [string]$ruleName,
+    [Parameter(Mandatory=$true, HelpMessage = "Please provide a valid priority")]
+    [number]$priority,
+    [Parameter(Mandatory=$true, HelpMessage = "Please provide a valid destinationIP ")]
+    [string]$destinationIP
+ )
+
 # Variables
-$resourceGroupName = "RG-SYSTEME-FRACE-001"
-$nsgName = "nsg-stcld002-qua-001"
-$ruleName = "DenyAnyCustomAnyInbound"
-$priority = 100
-$destinationIP = "10.20.32.4"
+# $resourceGroupName = "RG-SYSTEME-FRACE-001"
+# $nsgName = "nsg-stcld002-qua-001"
+# $ruleName = "DenyAnyCustomAnyInbound"
+# $priority = 100
+# $destinationIP = "10.20.32.4"
 
 # Get the NSG
 $nsg = Get-AzNetworkSecurityGroup -ResourceGroupName $resourceGroupName -Name $nsgName
