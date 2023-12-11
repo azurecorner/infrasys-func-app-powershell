@@ -1,8 +1,7 @@
 $environement="qua"
 $resourceGroupLocation = "francecentral"
 $resourceGroupName = "RG-CLD-$environement-FRACE-001"
-$virtualNetwokResourceGroupName="RG-SYSTEME-FRACE-001
-"
+$virtualNetwokResourceGroupName="RG-SYSTEME-FRACE-001"
 $appServicePlan = "asp-ctnvb-$environement-frace-001"
 $functionApp = "funcctnvbquafrace001"
 $storage = "stcldquafrace003"
