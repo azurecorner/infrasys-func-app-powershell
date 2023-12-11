@@ -67,6 +67,7 @@ steps:
 
 - task: AzurePowerShell@5
   displayName: Deploy Virtual Network Peering
+  enabled : false
   inputs:
     azureSubscription: $(azureResourceManagerConnection)
     ScriptType: 'FilePath'
