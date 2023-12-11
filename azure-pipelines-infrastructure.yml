@@ -45,7 +45,7 @@ steps:
     azureSubscription: $(azureResourceManagerConnection)
     ScriptType: 'FilePath'
     ScriptPath: '$(System.DefaultWorkingDirectory)/scripts/addNetworkSecurityRules.ps1'
-    ScriptArguments: '-resourceGroupName "RG-SYSTEME-FRACE-001" -nsgName "nsg-stcld002-qua-001" -ruleName "DenyAnyCustomAnyInbound" -priority 100 -destinationIP "10.20.32.4" '
+    ScriptArguments: '-resourceGroupName "RG-SYSTEME-FRACE-001" -nsgName "nsg-stcld002-qua-001" -ruleName "DenyAnyCustomAnyInbound" -priority "100" -destinationIP "10.20.32.4" '
     azurePowerShellVersion: 'LatestVersion'
 
 

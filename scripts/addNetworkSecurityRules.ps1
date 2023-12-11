@@ -7,7 +7,7 @@ Param
     [Parameter(Mandatory=$true, HelpMessage = "Please provide a valid ruleName ")]
     [string]$ruleName,
     [Parameter(Mandatory=$true, HelpMessage = "Please provide a valid priority")]
-    [number]$priority,
+    [string]$priority,
     [Parameter(Mandatory=$true, HelpMessage = "Please provide a valid destinationIP ")]
     [string]$destinationIP
  )
