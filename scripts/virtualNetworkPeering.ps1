@@ -1,6 +1,6 @@
 $environement="qua"
 $hubVirtualNetworkName="vnet-infrasys-hub-shared-frace-$environement"
-$hubResourceGroupName="rg-infrasys-shared-$environement"
+$hubResourceGroupName="rg-infrasys-shared-sandbox"
 $spokeVirtualNetworkName="VNET-SYSTEME-FRACE-001"
 $spokeResourceGroupName="RG-CLD-$environement-FRACE-001"
 
