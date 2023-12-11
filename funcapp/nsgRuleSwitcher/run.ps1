@@ -18,7 +18,7 @@ $accessRule = "Allow"
 Write-Host -ForegroundColor Green " *************** Applying access rule $($accessRule) ****************"
 
 # Variables
-$resourceGroupName = "RG-CLD-QUA-FRACE-001"
+$resourceGroupName = "RG-SYSTEME-FRACE-001"
 $nsgName = "nsg-stcld002-qua-001"
 $ruleName = "DenyAnyCustomAnyInbound"  
 
