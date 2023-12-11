@@ -7,7 +7,7 @@ pool:
 variables: 
    
   - name: resourceGroupName
-    value: RG-SYSTEME-FRACE-001-TEST
+    value: RG-CLD-QUA-FRACE-001
   
   - name: location
     value: francecentral
@@ -16,7 +16,7 @@ variables:
     value: VNET-SYSTEME-FRACE-001
 
   - name: functionAppName
-    value: funcswapnsgtrafficxyz
+    value: funcctnvbquafrace001
   
   - name: azureResourceManagerConnection
     value: 'IRP INFRAS SYSTEM SP'

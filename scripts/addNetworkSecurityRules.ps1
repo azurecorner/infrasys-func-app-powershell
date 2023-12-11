@@ -1,6 +1,6 @@
 # Variables
-$resourceGroupName = "RG-SYSTEME-FRACE-001-TEST"
-$nsgName = "nsg-stcld002-prod-001"
+$resourceGroupName = "RG-CLD-QUA-FRACE-001"
+$nsgName = "nsg-stcld002-qua-001"
 $ruleName = "DenyAnyCustomAnyInbound"
 $priority = 100
 $destinationIP = "10.20.32.4"

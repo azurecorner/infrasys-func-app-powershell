@@ -1,19 +1,25 @@
-# Function app and storage account names must be unique.
-
-# Variable block
-
+$environement="qua"
 $resourceGroupLocation = "francecentral"
-$resourceGroupName = "RG-SYSTEME-FRACE-001-TEST"
-$appServicePlan = "funcswapnsgtrafficxyzasp"
-$functionApp = "funcswapnsgtrafficxyz"
-$storage = "st$functionApp"
+$resourceGroupName = "RRG-CLD-$environement-FRACE-001"
+$appServicePlan = "asp-ctnvb-$environement-frace-001"
+$functionApp = "funcctnvbquafrace001"
+$storage = "stcldquafrace003"
 $skuStorage = "Standard_LRS"
 $skuPlan = "B1"
 $functionsVersion = "4"
 
-# Create a resource group
-# Write-Host "Creating $resourceGroupName in $location..."
-# New-AzResourceGroup -Name $resourceGroupName -Location $location -Tag $tag
+$hubVirtualNetworkName ='vnet-infrasys-hub-shared-frace-sandbox' 
+$hubResourceGroupName = "rg-infrasys-shared-sandbox"
+$virtualNetworkName ='VNET-SYSTEME-FRACE-001' 
+$privateEndpointSubnetName= 'snet-cld-qua-frace-001' 
+$ResourceId =$function.Id
+$privateDnsZoneName ='privatelink.azurewebsites.net'  
+$dnsLinkName ='dsnLink'  
+$privateEndpointName ='pe-func-ctnvb-qua-frace-001'   
+$privateDnsZoneConfigName ='snet-cld-qua-ZoneGroup'   
+$groupId ='sites'
+
+
 
 $storageAcc=Get-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storage -ErrorVariable notPresent -ErrorAction SilentlyContinue
 if($notPresent){ 
@@ -21,7 +27,6 @@ if($notPresent){
     # Create an Azure storage account in the resource group.
     Write-Host "Creating $storage"
     $storageAcc=New-AzStorageAccount -Name $storage -Location $resourceGroupLocation -ResourceGroupName $ResourceGroupName -SkuName $skuStorage
-
 }
 else {
     Write-Host -ForegroundColor Yellow "storage account already  exist"
@@ -42,20 +47,11 @@ Write-Host "Creating function app $function"
 if($null -eq $function){ 
     # Create a Function App
     Write-Host "Creating $function"
-    $function=New-AzFunctionApp -Name $functionApp -StorageAccountName $storage -PlanName $appServicePlan -ResourceGroupName $resourceGroupName -Runtime PowerShell -FunctionsVersion $functionsVersion -RuntimeVersion 7.2
+    $function=New-AzFunctionApp -Name $functionApp -StorageAccountName $storageAcc.StorageAccountName  -PlanName $appServicePlan -ResourceGroupName $resourceGroupName -Runtime PowerShell -FunctionsVersion $functionsVersion -RuntimeVersion 7.2
 
  }
 
- $hubVirtualNetworkName ='vnet-infrasys-hub-shared-frace-sandbox' 
- $hubResourceGroupName = "rg-infrasys-shared-sandbox"
-$virtualNetworkName ='VNET-SYSTEME-FRACE-001' 
-$privateEndpointSubnetName= 'snet-cld-prod-frace-001' 
-$ResourceId =$function.Id
-$privateDnsZoneName ='privatelink.azurewebsites.net'  
-$dnsLinkName ='dsnLink'  
-$privateEndpointName ='pefuncswapnsgtraffic'   
-$privateDnsZoneConfigName ='funcswapnsgtrafficZoneGroup'   
-$groupId ='sites'
+
 
 Write-Host -ForegroundColor Blue "####### creating private endpoint $privateEndpointName using resourceGroupName $resourceGroupName location $resourceGroupLocation `n" `
 "virtualNetworkName $virtualNetworkName `n" `

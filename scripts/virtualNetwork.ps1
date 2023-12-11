@@ -9,7 +9,7 @@ Param
     [Parameter(Mandatory=$true, HelpMessage = "Please provide a valid environment")]
     [string]$environment
  )
-$nsgName = "nsg-stcld002-prod-001"
+$nsgName = "nsg-stcld002-qua-001"
 $backendSubnetName="snet-cld-prod-frace-001"
 $application ='infrasysteme';
 $tags = @{"application"="$application"; 
